@@ -1,0 +1,89 @@
+#ifndef TRACKER_DATA_H_
+#define TRACKER_DATA_H_
+
+#include "node_modules/hashset-cpp/hashFn.h"
+
+struct ST_TRACKER_DATA {
+public:
+    ST_TRACKER_DATA():
+      sHost(nullptr) {
+    }
+    
+    ST_TRACKER_DATA(const ST_TRACKER_DATA &other) {
+        if (nullptr == other.sHost) {
+            return;
+        }
+        
+        sHost = new char[strlen(other.sHost) + 1];
+        strcpy(sHost, other.sHost);
+    }
+    
+    ~ST_TRACKER_DATA() {
+        if (nullptr != sHost) {
+            delete []sHost;
+        }
+    }
+    
+    uint64_t hash() const {
+        HashFn fn(19);
+        if (!sHost) {
+            return 0;
+        }
+        
+        return fn(sHost, static_cast<int>(strlen(sHost)));
+        
+    }
+    
+    bool operator==(const ST_TRACKER_DATA &rhs) const {
+        int hostLen = static_cast<int>(strlen(sHost));
+        int rhsHostLen = static_cast<int>(strlen(rhs.sHost));
+        
+        if (hostLen != rhsHostLen) {
+            return false;
+        }
+        
+        return !memcmp(sHost, rhs.sHost, hostLen);
+    }
+    
+    // Nothing needs to be updated when a host is added multiple times
+    void update(const ST_TRACKER_DATA &) {}
+    
+    uint32_t serialize(char* buffer) {
+        uint32_t size = 0;
+
+        if (buffer) {
+            snprintf(buffer, sizeof(unsigned int), "%x", (unsigned int)strlen(sHost));
+            memcpy(buffer + sizeof(unsigned int), sHost, strlen(sHost));
+        }
+        size = sizeof(unsigned int) + strlen(sHost);
+        
+        return size;
+    }
+    
+    uint32_t deserialize(char *buffer, uint32_t bufferSize) {
+        uint32_t size = 0;
+        
+        if (!buffer || 0 == bufferSize) {
+            return size;
+        }
+        unsigned int hostLength = 0;
+        sscanf(buffer, "%x", &hostLength);
+        if (sHost) {
+            delete []sHost;
+        }
+        size = sizeof(hostLength);
+        sHost = new char[hostLength + 1];
+        if (!sHost) {
+            return size;
+        }
+        memcpy(sHost, buffer + size, hostLength);
+        sHost[hostLength] = '\0';
+        size += hostLength;
+        
+        return size;
+    }
+    
+    char* sHost;
+};
+
+#endif  //TRACKER_DATA_H_
