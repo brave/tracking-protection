@@ -28,7 +28,36 @@
       "MACOSX_DEPLOYMENT_TARGET": "10.9",
       "GCC_ENABLE_CPP_EXCEPTIONS": "YES",
     },
-  }, {
+  },
+  {
+      "target_name": "tp_node_addon",
+      "sources": [
+        "TPParser.cpp",
+        "TPParser.h",
+        "TrackerData.h",
+        "FirstPartyHost.h",
+        "./node_addon/tracking_protection.cpp"
+      ],
+      "include_dirs": [
+        ".",
+        "<!(node -e \"require('hashset-cpp')\")"
+      ],
+      "conditions": [
+        ['OS=="win"', {
+          }, {
+            'cflags_cc': [ '-fexceptions' ]
+          }
+        ]
+      ],
+      "xcode_settings": {
+      "OTHER_CFLAGS": [ "-ObjC" ],
+      "OTHER_CPLUSPLUSFLAGS" : ["-std=c++11","-stdlib=libc++", "-v"],
+      "OTHER_LDFLAGS": ["-stdlib=libc++"],
+      "MACOSX_DEPLOYMENT_TARGET": "10.9",
+      "GCC_ENABLE_CPP_EXCEPTIONS": "YES",
+      },
+     },
+   {
     "target_name": "sample",
     "type": "executable",
     "sources": [
