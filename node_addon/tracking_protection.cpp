@@ -1,9 +1,11 @@
 #include <node.h>
+#include <node_buffer.h>
 #include "../TPParser.h"
 
 using v8::FunctionCallbackInfo;
 using v8::Isolate;
 using v8::Local;
+using v8::MaybeLocal;
 using v8::Object;
 using v8::String;
 using v8::Number;
@@ -12,6 +14,7 @@ using v8::Value;
 using v8::Exception;
 
 CTPParser gParser;
+char* deserializedData = nullptr;
 
 void addTracker(const FunctionCallbackInfo<Value>& args) {
     Isolate* isolate = args.GetIsolate();
@@ -104,12 +107,67 @@ void findFirstPartyHosts(const FunctionCallbackInfo<Value>& args) {
     }
 }
 
+void serialize(const FunctionCallbackInfo<Value>& args) {
+    Isolate* isolate = args.GetIsolate();
+    
+    unsigned int totalSize = 0;
+    // Serialize data
+    char* data = gParser.serialize(&totalSize);
+    if (nullptr == data) {
+        isolate->ThrowException(Exception::TypeError(
+                                                     String::NewFromUtf8(isolate, "Could not serialize")));
+        return;
+    }
+    
+    MaybeLocal<Object> buffer = node::Buffer::New(isolate, totalSize);
+    Local<Object> localBuffer;
+    if (!buffer.ToLocal(&localBuffer)) {
+        isolate->ThrowException(Exception::TypeError(
+                                                     String::NewFromUtf8(isolate, "Could not convert MaybeLocal to Local")));
+        return;
+    }
+    ::memcpy(node::Buffer::Data(localBuffer), data, totalSize);
+    
+    delete []data;
+    
+    args.GetReturnValue().Set(localBuffer);
+}
+
+void deserialize(const FunctionCallbackInfo<Value>& args) {
+    Isolate* isolate = args.GetIsolate();
+    if (args.Length() < 1) {
+        isolate->ThrowException(Exception::TypeError(
+                                                     String::NewFromUtf8(isolate, "Wrong number of arguments")));
+        return;
+    }
+    
+    unsigned char *buf = (unsigned char *)node::Buffer::Data(args[0]);
+    size_t length = node::Buffer::Length(args[0]);
+    
+    if (nullptr != deserializedData) {
+        delete []deserializedData;
+    }
+    deserializedData = new char[length];
+    memcpy(deserializedData, buf, length);
+    
+    gParser.deserialize(deserializedData);
+}
+
+void cleanup(const FunctionCallbackInfo<Value>&) {
+    if (nullptr != deserializedData) {
+        delete []deserializedData;
+    }
+}
+
 
 void init(Local<Object> exports) {
     NODE_SET_METHOD(exports, "addTracker", addTracker);
     NODE_SET_METHOD(exports, "matchesTracker", matchesTracker);
     NODE_SET_METHOD(exports, "addFirstPartyHosts", addFirstPartyHosts);
     NODE_SET_METHOD(exports, "findFirstPartyHosts", findFirstPartyHosts);
+    NODE_SET_METHOD(exports, "serialize", serialize);
+    NODE_SET_METHOD(exports, "deserialize", deserialize);
+    NODE_SET_METHOD(exports, "cleanup", cleanup);
 }
 
 NODE_MODULE(tp_node_addon, init)
