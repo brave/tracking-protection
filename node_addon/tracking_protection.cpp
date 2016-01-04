@@ -156,6 +156,7 @@ void deserialize(const FunctionCallbackInfo<Value>& args) {
 void cleanup(const FunctionCallbackInfo<Value>&) {
     if (nullptr != deserializedData) {
         delete []deserializedData;
+        deserializedData = nullptr;
     }
 }
 

@@ -6,6 +6,7 @@ https://github.com/disconnectme/disconnect-tracking-protection/blob/master/servi
 ## Setup
 
 ```
+npm install --save tracking-protection
 ```
 
 ## Sample
