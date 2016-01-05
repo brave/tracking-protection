@@ -2,7 +2,7 @@
 #ifndef TPPARSER_H_
 #define TPPARSER_H_
 
-#include "node_modules/hashset-cpp/HashSet.h"
+#include "HashSet.h"
 #include "TrackerData.h"
 #include "FirstPartyHost.h"
 

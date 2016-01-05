@@ -10,7 +10,7 @@
     ],
     "include_dirs": [
       ".",
-      "<!(node -e \"require('hashset-cpp')\")"
+      './node_modules/hashset-cpp'
     ],
     "dependencies": [
       "./node_modules/hashset-cpp/binding.gyp:hashset-cpp"
@@ -42,7 +42,7 @@
       ],
       "include_dirs": [
         ".",
-        "<!(node -e \"require('hashset-cpp')\")"
+        './node_modules/hashset-cpp'
       ],
       "conditions": [
         ['OS=="win"', {
@@ -74,7 +74,7 @@
     ],
     "include_dirs": [
       ".",
-      "<!(node -e \"require('hashset-cpp')\")"
+      './node_modules/hashset-cpp'
     ],
     "conditions": [
       ['OS=="win"', {
@@ -108,7 +108,7 @@
       ".",
       "<!(node -e \"require('cppunitlite')\")",
       "<!(node -e \"require('nan')\")",
-      "<!(node -e \"require('hashset-cpp')\")"
+      './node_modules/hashset-cpp'
     ],
     "dependencies": [
       "./node_modules/cppunitlite/binding.gyp:CppUnitLite"

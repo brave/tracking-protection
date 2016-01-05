@@ -1,7 +1,7 @@
 #ifndef FIRST_PARTY_HOST_H_
 #define FIRST_PARTY_HOST_H_
 
-#include "node_modules/hashset-cpp/hashFn.h"
+#include "hashFn.h"
 
 struct ST_FIRST_PARTY_HOST
 {

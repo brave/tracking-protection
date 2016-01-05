@@ -1,7 +1,7 @@
 #ifndef TRACKER_DATA_H_
 #define TRACKER_DATA_H_
 
-#include "node_modules/hashset-cpp/hashFn.h"
+#include "hashFn.h"
 
 struct ST_TRACKER_DATA {
 public:
