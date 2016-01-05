@@ -2,7 +2,7 @@
   "name": "tracking-protection",
   "version": "1.0.0",
   "description": "C++ tracking protection filter parser for lists like https://github.com/disconnectme/disconnect-tracking-protection/blob/master/services.json",
-  "main": "install.js",
+  "main":  "./build/Release/tracking-protection",
   "directories": {
     "test": "test"
   },

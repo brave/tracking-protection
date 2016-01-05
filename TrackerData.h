@@ -51,11 +51,18 @@ public:
     uint32_t serialize(char* buffer) {
         uint32_t size = 0;
 
+        char sz[32];
+        uint32_t dataLenSize = 1 + snprintf(sz, sizeof(sz), "%x", (unsigned int)strlen(sHost));
+        
         if (buffer) {
-            snprintf(buffer, sizeof(unsigned int), "%x", (unsigned int)strlen(sHost));
-            memcpy(buffer + sizeof(unsigned int), sHost, strlen(sHost));
+            memcpy(buffer + size, sz, dataLenSize);
         }
-        size = sizeof(unsigned int) + strlen(sHost);
+        size += dataLenSize;
+        
+        if (buffer) {
+            memcpy(buffer + size, sHost, strlen(sHost));
+        }
+        size += strlen(sHost);
         
         return size;
     }
@@ -71,7 +78,7 @@ public:
         if (sHost) {
             delete []sHost;
         }
-        size = sizeof(hostLength);
+        size = strlen(buffer) + 1;
         sHost = new char[hostLength + 1];
         if (!sHost) {
             return size;

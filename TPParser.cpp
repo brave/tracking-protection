@@ -1,8 +1,8 @@
 #include "TPParser.h"
 
 CTPParser::CTPParser():
-    mTrackers(2700),
-    mFirstPartyHosts(200) {
+    mTrackers(2196),
+    mFirstPartyHosts(1016) {
 }
 
 CTPParser::~CTPParser() {
@@ -210,12 +210,17 @@ char* CTPParser::serialize(unsigned int* totalSize) {
     }
     memset(result, 0, *totalSize);
     
-    snprintf(result, *totalSize, "%x", trackersSize);
-    pos += sizeof(trackersSize);
+    char sz[32];
+    uint32_t dataLenSize = 1 + snprintf(sz, sizeof(sz), "%x", trackersSize);
+    memcpy(result + pos, sz, dataLenSize);
+    pos += dataLenSize;
+    
     memcpy(result + pos, trackers, trackersSize);
     pos += trackersSize;
-    snprintf(result + pos, *totalSize - pos, "%x", firstPartiesSize);
-    pos += sizeof(firstPartiesSize);
+    
+    dataLenSize = 1 + snprintf(sz, sizeof(sz), "%x", firstPartiesSize);
+    memcpy(result + pos, sz, dataLenSize);
+    pos += dataLenSize;
     memcpy(result + pos, firstParties, firstPartiesSize);
     
     delete []trackers;
@@ -232,13 +237,13 @@ void CTPParser::deserialize(char *buffer) {
     uint32_t trackersSize = 0;
     unsigned int pos = 0;
     sscanf(buffer, "%x", &trackersSize);
-    pos += sizeof(trackersSize);
+    pos += strlen(buffer) + 1;
     
     mTrackers.deserialize(buffer + pos, trackersSize);
     pos += trackersSize;
     
     uint32_t firstPartiesSize = 0;
-    sscanf(buffer, "%x", &firstPartiesSize);
-    pos += sizeof(firstPartiesSize);
+    sscanf(buffer + pos, "%x", &firstPartiesSize);
+    pos += strlen(buffer + pos) + 1;
     mFirstPartyHosts.deserialize(buffer + pos, firstPartiesSize);
 }

@@ -59,18 +59,22 @@ public:
     uint32_t serialize(char* buffer) {
         uint32_t size = 0;
         unsigned int pos = 0;
+        char sz[32];
+        uint32_t dataLenSize = 1 + snprintf(sz, sizeof(sz), "%x", (unsigned int)strlen(sFirstPartyHost));
         if (buffer) {
-            snprintf(buffer, sizeof(unsigned int), "%x", (unsigned int)strlen(sFirstPartyHost));
+            memcpy(buffer + pos, sz, dataLenSize);
         }
-        pos += sizeof(unsigned int);
+        pos += dataLenSize;
         if (buffer) {
             memcpy(buffer + pos, sFirstPartyHost, strlen(sFirstPartyHost));
         }
         pos += strlen(sFirstPartyHost);
+        
+        dataLenSize = 1 + snprintf(sz, sizeof(sz), "%x", (unsigned int)strlen(sThirdPartyHosts));
         if (buffer) {
-            snprintf(buffer + pos, sizeof(unsigned int), "%x", (unsigned int)strlen(sThirdPartyHosts));
+            memcpy(buffer + pos, sz, dataLenSize);
         }
-        pos += sizeof(unsigned int);
+        pos += dataLenSize;
         if (buffer) {
             memcpy(buffer + pos, sThirdPartyHosts, strlen(sThirdPartyHosts));
         }
@@ -92,7 +96,7 @@ public:
         if (sFirstPartyHost) {
             delete []sFirstPartyHost;
         }
-        size = sizeof(firstPartyHostLength);
+        size = strlen(buffer) + 1;
         sFirstPartyHost = new char[firstPartyHostLength + 1];
         if (!sFirstPartyHost) {
             return size;
@@ -107,7 +111,7 @@ public:
         if (sThirdPartyHosts) {
             delete []sThirdPartyHosts;
         }
-        size += sizeof(thirdPartyHostLength);
+        size += strlen(buffer + size) + 1;
         sThirdPartyHosts = new char[thirdPartyHostLength + 1];
         if (!sThirdPartyHosts) {
             return size;
