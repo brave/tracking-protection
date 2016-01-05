@@ -36,7 +36,8 @@
         "TPParser.h",
         "TrackerData.h",
         "FirstPartyHost.h",
-        "./node_addon/tracking_protection.cpp"
+        "./node_addon/TPParserWrap.h",
+        "./node_addon/TPParserWrap.cpp"
       ],
       "include_dirs": [
         ".",

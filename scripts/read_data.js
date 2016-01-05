@@ -1,8 +1,8 @@
-var addon = require('./build/Release/tp_node_addon');
+var addon = require('../build/Release/tp_node_addon');
 var fs = require('fs');
 
 // Functions to call to work with the addon
-/*
+
 addon.addTracker('facebook.com');
 console.log(addon.matchesTracker('facebook.com'));
 console.log(addon.matchesTracker('facebook1.com'));
@@ -18,11 +18,11 @@ console.log('size == ' + serializedObject.length);
 addon.deserialize(serializedObject);
 console.log(addon.matchesTracker('facebook.com'));
 console.log(addon.matchesTracker('facebook1.com'));
-*/
 
-var buffer = fs.readFileSync('./data/TrackingProtection.dat');
 
-addon.deserialize(buffer);
+//var buffer = fs.readFileSync('./data/TrackingProtection.dat');
+
+//addon.deserialize(buffer);
 
 // Call that to cleanup memory
 addon.cleanup();
