@@ -9,7 +9,7 @@
   "scripts": {
     "test": "make test",
     "build": "make",
-    "preinstall": "npm install hashset-cpp",
+    "preinstall": "npm install hashset-cpp && npm install cppunitlite",
     "install": "node-gyp rebuild",
     "sample": "babel-node ./scripts/genDataFile.js"
   },
