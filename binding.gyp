@@ -111,7 +111,7 @@
       "<!(node -e \"require('hashset-cpp')\")"
     ],
     "dependencies": [
-      "node_modules/cppunitlite/binding.gyp:CppUnitLite"
+      "./node_modules/cppunitlite/binding.gyp:CppUnitLite"
     ],
     "conditions": [
       ['OS=="win"', {
