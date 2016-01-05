@@ -35,7 +35,6 @@ namespace TPParserWrap {
         tpl->SetClassName(String::NewFromUtf8(isolate, "CTPParser"));
         tpl->InstanceTemplate()->SetInternalFieldCount(1);
         
-        // Prototype
         NODE_SET_PROTOTYPE_METHOD(tpl, "addTracker", CTPParserWrap::AddTracker);
         NODE_SET_PROTOTYPE_METHOD(tpl, "matchesTracker", CTPParserWrap::MatchesTracker);
         NODE_SET_PROTOTYPE_METHOD(tpl, "addFirstPartyHosts", CTPParserWrap::AddFirstPartyHosts);

@@ -1,8 +1,9 @@
-var addon = require('../build/Release/tp_node_addon');
+var CTPParser = require('../build/Release/tp_node_addon').CTPParser;
 var fs = require('fs');
 
-// Functions to call to work with the addon
 
+// Functions to call to work with the addon
+var addon = new CTPParser();
 addon.addTracker('facebook.com');
 console.log(addon.matchesTracker('facebook.com'));
 console.log(addon.matchesTracker('facebook1.com'));

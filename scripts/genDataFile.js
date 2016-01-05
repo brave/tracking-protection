@@ -1,8 +1,9 @@
-var addon = require('../build/Release/tp_node_addon');
+var CTPParser = require('../build/Release/tp_node_addon').CTPParser;
 var fs = require('fs');
 
 var data = fs.readFileSync('../data/disconnect.json');
 
+var addon = new CTPParser();
 var mapObjects = new Map();
 var values = new Map();
 var previousKey = undefined;
