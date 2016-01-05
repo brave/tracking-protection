@@ -2,13 +2,14 @@
   "name": "tracking-protection",
   "version": "1.0.0",
   "description": "C++ tracking protection filter parser for lists like https://github.com/disconnectme/disconnect-tracking-protection/blob/master/services.json",
-  "main":  "./build/Release/tracking-protection",
+  "main": "./build/Release/tracking-protection",
   "directories": {
     "test": "test"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "install": "node-gyp rebuild"
+    "install": "node-gyp rebuild",
+    "sample": "babel-node ./scripts/genDataFile.js"
   },
   "repository": {
     "type": "git",
@@ -27,5 +28,9 @@
     "mkdirp": "^0.5.1",
     "nan": "^2.1.0",
     "npm": "^3.5.2"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13"
   }
 }
