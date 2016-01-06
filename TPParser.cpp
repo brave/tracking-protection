@@ -38,6 +38,17 @@ void CTPParser::addFirstPartyHosts(const char *inputHost, const char *thirdParty
     strcpy(firstPartyHost.sFirstPartyHost, inputHost);
     strcpy(firstPartyHost.sThirdPartyHosts, thirdPartyHosts);
     
+    if (0 == strncmp(firstPartyHost.sFirstPartyHost, "http://", 7) && strlen(firstPartyHost.sFirstPartyHost) > 7) {
+        strcpy(firstPartyHost.sFirstPartyHost, firstPartyHost.sFirstPartyHost + 7);
+    }
+    if (0 == strncmp(firstPartyHost.sFirstPartyHost, "www.", 4) && strlen(firstPartyHost.sFirstPartyHost) > 4) {
+        strcpy(firstPartyHost.sFirstPartyHost, firstPartyHost.sFirstPartyHost + 4);
+    }
+    if (0 != strlen(firstPartyHost.sFirstPartyHost) &&
+        '/' == firstPartyHost.sFirstPartyHost[strlen(firstPartyHost.sFirstPartyHost) - 1]) {
+        firstPartyHost.sFirstPartyHost[strlen(firstPartyHost.sFirstPartyHost) - 1] = '\0';
+    }
+    
     mFirstPartyHosts.add(firstPartyHost);
 }
 

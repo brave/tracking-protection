@@ -33,8 +33,8 @@ int main(int argc, char **argv) {
             cout << "does not match" << endl;
         }
         
-        parser.addFirstPartyHosts("facebook.com", "facebook.fr,facebook.de");
-        parser.addFirstPartyHosts("google.com", "2mdn.net,admeld.com");
+        parser.addFirstPartyHosts("http://www.facebook.com/", "facebook.fr,facebook.de");
+        parser.addFirstPartyHosts("http://google.com/", "2mdn.net,admeld.com");
         parser.addFirstPartyHosts("subdomain.google.com", "facebook.fr,facebook.de");
         
         // Returns combined result of third party hosts for "google.com" and for "subdomain.google.com"
