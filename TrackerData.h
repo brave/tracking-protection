@@ -3,6 +3,8 @@
 
 #include "hashFn.h"
 
+static HashFn sHashFn(19);
+
 struct ST_TRACKER_DATA {
 public:
     ST_TRACKER_DATA():
@@ -25,12 +27,11 @@ public:
     }
     
     uint64_t hash() const {
-        HashFn fn(19);
         if (!sHost) {
             return 0;
         }
         
-        return fn(sHost, static_cast<int>(strlen(sHost)));
+        return sHashFn(sHost, static_cast<int>(strlen(sHost)));
         
     }
     

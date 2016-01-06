@@ -3,6 +3,8 @@
 
 #include "hashFn.h"
 
+static HashFn sFirstPartyHashFn(19);
+
 struct ST_FIRST_PARTY_HOST
 {
 public:
@@ -33,12 +35,11 @@ public:
     
     uint64_t hash() const {
         // Calculate hash only on first party host as we will search using it only
-        HashFn fn(19);
         if (!sFirstPartyHost) {
             return 0;
         }
         
-        return fn(sFirstPartyHost, static_cast<int>(strlen(sFirstPartyHost)));
+        return sFirstPartyHashFn(sFirstPartyHost, static_cast<int>(strlen(sFirstPartyHost)));
         
     }
     
