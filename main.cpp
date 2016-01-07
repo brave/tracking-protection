@@ -35,6 +35,7 @@ int main(int argc, char **argv) {
         
         parser.addFirstPartyHosts("http://www.facebook.com/", "facebook.fr,facebook.de");
         parser.addFirstPartyHosts("http://google.com/", "2mdn.net,admeld.com");
+        parser.addFirstPartyHosts("https://twitter.com/", "2mdn.net,admeld.com");
         parser.addFirstPartyHosts("subdomain.google.com", "facebook.fr,facebook.de");
         
         // Returns combined result of third party hosts for "google.com" and for "subdomain.google.com"
@@ -107,7 +108,7 @@ int main(int argc, char **argv) {
                 }
                 
                 // Prints "2mdn.net,admeld.com"
-                char* thirdPartyHosts = parser.findFirstPartyHosts("http://www.google.com/");
+                char* thirdPartyHosts = parser.findFirstPartyHosts("mobile.twitter.com");
                 if (nullptr != thirdPartyHosts) {
                     cout << thirdPartyHosts << endl;
                 }
