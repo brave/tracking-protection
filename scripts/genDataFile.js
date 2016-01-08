@@ -8,7 +8,17 @@ var mapObjects = new Map();
 var values = new Map();
 var previousKey = undefined;
 var previousValue = undefined;
+var addToList = true;
 JSON.parse(String(data), function(k, v) {
+  if (k == 'Analytics' || k == 'Legacy Disconnect') {
+    addToList = false;
+    //console.log(k);
+  }
+  else if (k == 'Content' || k == 'Legacy Content') {
+    addToList = true;
+    //console.log(k);
+  }
+  //console.log(k);
   if (k.indexOf('http://') == 0 || k.indexOf('https://') == 0) {
     var existingValues = mapObjects.get(k);
     if (undefined == existingValues) {
@@ -19,11 +29,17 @@ JSON.parse(String(data), function(k, v) {
         existingValues.set(key);
       }
     }
-    mapObjects.set(k, existingValues);
+    if (undefined != existingValues && 0 != existingValues.size) {
+      mapObjects.set(k, existingValues);
+    }
     values = new Map();
     previousKey = undefined;
     previousValue = undefined;
   } else if (!isNaN(k)) {
+    if (!addToList) {
+      console.log(v);
+      return;
+    }
     if (undefined != previousKey && k <= previousKey) {
       values.delete(previousValue);
     }
