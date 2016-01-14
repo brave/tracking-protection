@@ -18,7 +18,7 @@
     "url": "git+https://github.com/SergeyZhukovsky/tracking-protection.git"
   },
   "author": "Serg Zhukovsky <serg.zhukovsky@gmail.com>",
-  "license": "ISC",
+  "license": "MPL-2.0",
   "gypfile": true,
   "bugs": {
     "url": "https://github.com/SergeyZhukovsky/tracking-protection/issues"
