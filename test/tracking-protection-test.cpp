@@ -1,19 +1,21 @@
-
+/* Copyright (c) 2016 Sergiy Zhukovs'kyy. Distributed under the MPL2 license.
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 #include <iostream>
 #include <string>
 #include "./CppUnitLite/TestHarness.h"
 #include "./CppUnitLite/Test.h"
 #include "../TPParser.h"
-//#include "./exampleData.h"
 
 TEST(parser, test1) {
-    
+
     char* data = nullptr;
     for (size_t i = 0; i < 2; i++)
     {
         CTPParser parser;
-    
+
         if (0 == i) {
             parser.addTracker("facebook.com");
             parser.addTracker("facebook.de");
@@ -22,7 +24,7 @@ TEST(parser, test1) {
             CHECK(nullptr != data);
             parser.deserialize(data);
         }
-    
+
         CHECK(parser.matchesTracker("facebook.com"));
         CHECK(parser.matchesTracker("facebook.de"));
         CHECK(!parser.matchesTracker("facebook1.com"));
@@ -37,11 +39,11 @@ TEST(parser, test1) {
             data = nullptr;
         }
     }
-    
+
     for (size_t i = 0; i < 2; i++)
     {
         CTPParser parser;
-        
+
         if (0 == i) {
             parser.addTracker("facebook.com");
             parser.addTracker("facebook.de");
@@ -51,7 +53,7 @@ TEST(parser, test1) {
             CHECK(nullptr != data);
             parser.deserialize(data);
         }
-        
+
         CHECK(parser.matchesTracker("subdomain.google-analytics.com"));
         CHECK(parser.matchesTracker("google-analytics.com"));
         CHECK(parser.matchesTracker("facebook.com"));
@@ -68,11 +70,11 @@ TEST(parser, test1) {
             data = nullptr;
         }
     }
-    
+
     for (size_t i = 0; i < 2; i++)
     {
         CTPParser parser;
-        
+
         if (0 == i) {
             parser.addTracker("subdomain.google-analytics.com");
             parser.addTracker("facebook.com");
@@ -82,7 +84,7 @@ TEST(parser, test1) {
             CHECK(nullptr != data);
             parser.deserialize(data);
         }
-        
+
         CHECK(parser.matchesTracker("subdomain.google-analytics.com"));
         CHECK(parser.matchesTracker("facebook.com"));
         CHECK(parser.matchesTracker("facebook.de"));
@@ -98,11 +100,11 @@ TEST(parser, test1) {
             data = nullptr;
         }
     }
-    
+
     for (size_t i = 0; i < 2; i++)
     {
         CTPParser parser;
-        
+
         if (0 == i) {
             parser.addFirstPartyHosts("facebook.com", "facebook.fr,facebook.de");
             parser.addFirstPartyHosts("google.com", "2mdn.net,admeld.com");
@@ -112,10 +114,10 @@ TEST(parser, test1) {
             CHECK(nullptr != data);
             parser.deserialize(data);
         }
-        
+
         char* thirdPartyHostsSubDomain = parser.findFirstPartyHosts("subdomain.google.com");
         CHECK(nullptr != thirdPartyHostsSubDomain);
-        
+
         char* thirdPartyHosts = parser.findFirstPartyHosts("google.com");
         CHECK(nullptr != thirdPartyHosts);
         if (nullptr != thirdPartyHostsSubDomain && nullptr != thirdPartyHosts) {
@@ -131,14 +133,14 @@ TEST(parser, test1) {
             delete []thirdPartyHostsSubDomain;
             thirdPartyHostsSubDomain = nullptr;
         }
-        
+
         thirdPartyHosts = parser.findFirstPartyHosts("facebook.com");
         CHECK(nullptr != thirdPartyHosts);
         if (nullptr != thirdPartyHosts) {
             delete []thirdPartyHosts;
             thirdPartyHosts = nullptr;
         }
-        
+
         if (0 == i) {
             unsigned int totalSize = 0;
             data = parser.serialize(&totalSize);

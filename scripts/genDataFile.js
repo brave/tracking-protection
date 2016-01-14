@@ -1,3 +1,8 @@
+/* Copyright (c) 2016 Sergiy Zhukovs'kyy. Distributed under the MPL2 license.
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
 var CTPParser = require('../build/Release/tp_node_addon').CTPParser;
 var fs = require('fs');
 
