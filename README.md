@@ -9,6 +9,20 @@ https://github.com/disconnectme/disconnect-tracking-protection/blob/master/servi
 npm install --save tracking-protection
 ```
 
+## Installation
+
+1. Clone the git repository from GitHub:
+
+        git clone https://github.com/SergeyZhukovsky/tracking-protection
+
+2. Open the working directory:
+
+        cd tracking-protection
+
+3. Install the Node (v5+) dependencies:
+
+        npm install
+
 ## Sample
 
 ```c++
