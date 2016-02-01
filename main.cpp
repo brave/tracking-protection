@@ -17,7 +17,15 @@ int main(int argc, char **argv) {
         parser.addTracker("facebook.de");
 
         // Prints matches
-        if (parser.matchesTracker("facebook.com")) {
+        if (parser.matchesTracker("facebook1.com", "facebook.com")) {
+            cout << "matches" << endl;
+        }
+        else {
+            cout << "does not match" << endl;
+        }
+        
+        // Prints does not match
+        if (parser.matchesTracker("facebook.com", "facebook.com")) {
             cout << "matches" << endl;
         }
         else {
@@ -25,14 +33,14 @@ int main(int argc, char **argv) {
         }
 
         // Prints does not match
-        if (parser.matchesTracker("facebook1.com")) {
+        if (parser.matchesTracker("facebook.com", "facebook1.com")) {
             cout << "matches" << endl;
         } else {
             cout << "does not match" << endl;
         }
 
         // Prints does not match
-        if (parser.matchesTracker("subdomain.google-analytics.com")) {
+        if (parser.matchesTracker("facebook.com", "subdomain.google-analytics.com")) {
             cout << "matches" << endl;
         } else {
             cout << "does not match" << endl;
@@ -59,14 +67,14 @@ int main(int argc, char **argv) {
         parser.deserialize(data);
 
         // Prints matches
-        if (parser.matchesTracker("facebook.com")) {
+        if (parser.matchesTracker("facebook1.com", "facebook.com")) {
             cout << "matches" << endl;
         }
         else {
             cout << "does not match" << endl;
         }
         // Prints does not match
-        if (parser.matchesTracker("facebook1.com")) {
+        if (parser.matchesTracker("facebook.com", "facebook1.com")) {
             cout << "matches" << endl;
         } else {
             cout << "does not match" << endl;
@@ -99,14 +107,14 @@ int main(int argc, char **argv) {
                 parser.deserialize(data);
 
                 // Prints matches
-                if (parser.matchesTracker("facebook.com")) {
+                if (parser.matchesTracker("facebook1.com", "facebook.com")) {
                     cout << "matches" << endl;
                 }
                 else {
                     cout << "does not match" << endl;
                 }
                 // Prints does not match
-                if (parser.matchesTracker("facebook1.com")) {
+                if (parser.matchesTracker("facebook.com", "facebook1.com")) {
                     cout << "matches" << endl;
                 } else {
                     cout << "does not match" << endl;

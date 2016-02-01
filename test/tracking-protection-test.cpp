@@ -25,9 +25,13 @@ TEST(parser, test1) {
             parser.deserialize(data);
         }
 
-        CHECK(parser.matchesTracker("facebook.com"));
-        CHECK(parser.matchesTracker("facebook.de"));
-        CHECK(!parser.matchesTracker("facebook1.com"));
+        CHECK(parser.matchesTracker("facebook1.com", "facebook.com"));
+        CHECK(parser.matchesTracker("facebook1.com", "facebook.de"));
+        CHECK(!parser.matchesTracker("facebook.com", "facebook1.com"));
+        CHECK(!parser.matchesTracker("facebook.com", "facebook.com"));
+        CHECK(!parser.matchesTracker("www.facebook.com", "facebook.com"));
+        CHECK(!parser.matchesTracker("facebook.com", "www.facebook.com"));
+        CHECK(!parser.matchesTracker("www.facebook.com", "www.facebook.com"));
         if (0 == i) {
             unsigned int totalSize = 0;
             data = parser.serialize(&totalSize);
@@ -54,11 +58,12 @@ TEST(parser, test1) {
             parser.deserialize(data);
         }
 
-        CHECK(parser.matchesTracker("subdomain.google-analytics.com"));
-        CHECK(parser.matchesTracker("google-analytics.com"));
-        CHECK(parser.matchesTracker("facebook.com"));
-        CHECK(parser.matchesTracker("facebook.de"));
-        CHECK(!parser.matchesTracker("subdomain.google-analytics1.com"));
+        CHECK(parser.matchesTracker("facebook.com", "subdomain.google-analytics.com"));
+        CHECK(parser.matchesTracker("facebook.com", "google-analytics.com"));
+        CHECK(parser.matchesTracker("facebook1.com", "facebook.com"));
+        CHECK(parser.matchesTracker("facebook.com", "facebook.de"));
+        CHECK(!parser.matchesTracker("facebook.com", "subdomain.google-analytics1.com"));
+        CHECK(!parser.matchesTracker("facebook.com", "facebook.com"));
         if (0 == i) {
             unsigned int totalSize = 0;
             data = parser.serialize(&totalSize);
@@ -85,10 +90,11 @@ TEST(parser, test1) {
             parser.deserialize(data);
         }
 
-        CHECK(parser.matchesTracker("subdomain.google-analytics.com"));
-        CHECK(parser.matchesTracker("facebook.com"));
-        CHECK(parser.matchesTracker("facebook.de"));
-        CHECK(!parser.matchesTracker("google-analytics.com"));
+        CHECK(parser.matchesTracker("facebook.com", "subdomain.google-analytics.com"));
+        CHECK(parser.matchesTracker("facebook1.com", "facebook.com"));
+        CHECK(parser.matchesTracker("facebook.com", "facebook.de"));
+        CHECK(!parser.matchesTracker("facebook.com", "google-analytics.com"));
+        CHECK(!parser.matchesTracker("facebook.com", "facebook.com"));
         if (0 == i) {
             unsigned int totalSize = 0;
             data = parser.serialize(&totalSize);

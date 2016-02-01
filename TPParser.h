@@ -19,7 +19,7 @@ public:
     void addTracker(const char *inputHost);
     // thirdPartyHosts comma separated list
     void addFirstPartyHosts(const char *inputHost, const char *thirdPartyHosts);
-    bool matchesTracker(const char *inputHost);
+    bool matchesTracker(const char *firstPartyHost, const char *inputHost);
     // Returns third party hosts as comma separated list
     // The returned buffer should be deleted.
     char* findFirstPartyHosts(const char *inputHost);

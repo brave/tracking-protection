@@ -94,23 +94,25 @@ namespace TPParserWrap {
 
     void CTPParserWrap::MatchesTracker(const FunctionCallbackInfo<Value>& args) {
         Isolate* isolate = args.GetIsolate();
-        if (args.Length() < 1) {
+        if (args.Length() < 2) {
             isolate->ThrowException(Exception::TypeError(
                                                          String::NewFromUtf8(isolate, "Wrong number of arguments")));
             return;
         }
 
-        if (!args[0]->IsString()) {
+        if (!args[0]->IsString() || !args[1]->IsString()) {
             isolate->ThrowException(Exception::TypeError(
                                                          String::NewFromUtf8(isolate, "Wrong arguments")));
             return;
         }
 
-        String::Utf8Value str(args[0]->ToString());
-        const char * buffer = *str;
+        String::Utf8Value strFirstPartyHost(args[0]->ToString());
+        String::Utf8Value strHost(args[1]->ToString());
+        const char * bufferFirstPartyHost = *strFirstPartyHost;
+        const char * bufferHost = *strHost;
 
         CTPParserWrap* obj = ObjectWrap::Unwrap<CTPParserWrap>(args.Holder());
-        args.GetReturnValue().Set(Boolean::New(isolate, obj->matchesTracker(buffer)));
+        args.GetReturnValue().Set(Boolean::New(isolate, obj->matchesTracker(bufferFirstPartyHost, bufferHost)));
     }
 
     void CTPParserWrap::AddFirstPartyHosts(const FunctionCallbackInfo<Value>& args) {

@@ -71,8 +71,20 @@ bool CTPParser::trackerExist(const char *inputHost) {
     return mTrackers.exists(trackerData);
 }
 
-bool CTPParser::matchesTracker(const char *inputHost) {
-    if (nullptr == inputHost) {
+bool CTPParser::matchesTracker(const char *firstPartyHost, const char *inputHost) {
+    if (nullptr == inputHost || nullptr == firstPartyHost) {
+        return false;
+    }
+    char* firstPartyHostToChek = (char*)firstPartyHost;
+    char* inputHostToCheck = (char*)inputHost;
+    size_t countToCompare = strlen("www.");
+    if (0 == strncmp(firstPartyHostToChek, "www.", countToCompare)) {
+        firstPartyHostToChek = firstPartyHostToChek + countToCompare;
+    }
+    if (0 == strncmp(inputHostToCheck, "www.", countToCompare)) {
+        inputHostToCheck = inputHostToCheck + countToCompare;
+    }
+    if (0 == strcmp(firstPartyHostToChek, inputHostToCheck)) {
         return false;
     }
 
