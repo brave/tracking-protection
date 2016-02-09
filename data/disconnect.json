@@ -2376,6 +2376,9 @@
     "fbcdn.net",
     "friendfeed.com"
   ]}},
+  {"Messenger": {"http://www.messenger.com/": [
+    "fbcdn.net"
+  ]}},
   {"Google": {"http://www.google.com/": [
     "2mdn.net",
     "admeld.com",
