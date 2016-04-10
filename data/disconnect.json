@@ -2379,6 +2379,9 @@
   {"Messenger": {"http://www.messenger.com/": [
     "fbcdn.net"
   ]}},
+  {"Instagram": {"https://www.instagram.com/": [
+    "fbcdn.net"
+  ]}},
   {"Google": {"http://www.google.com/": [
     "2mdn.net",
     "admeld.com",
