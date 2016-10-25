@@ -15,11 +15,12 @@ var previousKey = undefined;
 var previousValue = undefined;
 var addToList = true;
 JSON.parse(String(data), function(k, v) {
-  if (k == 'Analytics' || k == 'Legacy Disconnect') {
+  // We shouldn't add all section after Advertising, which is Content
+  if (k == 'Advertising') {
     addToList = false;
     //console.log(k);
   }
-  else if (k == 'Content' || k == 'Legacy Content') {
+  else if (k == 'Content') {
     addToList = true;
     //console.log(k);
   }
