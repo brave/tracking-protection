@@ -8528,6 +8528,13 @@
             "fbcdn.net"
           ]
         }
+      },
+      {
+        "Cnet": {
+          "https://www.cnet.com/": [
+            "2mdn.net"
+          ]
+        }
       }
     ]
   }
