@@ -8516,20 +8516,6 @@
         }
       },
       {
-        "Messenger": {
-          "http://www.messenger.com/": [
-            "fbcdn.net"
-          ]
-        }
-      },
-      {
-        "Instagram": {
-          "https://www.instagram.com/": [
-            "fbcdn.net"
-          ]
-        }
-      },
-      {
         "Cnet": {
           "https://www.cnet.com/": [
             "2mdn.net"
