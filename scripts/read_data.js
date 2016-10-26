@@ -9,26 +9,30 @@ var fs = require('fs');
 
 // Functions to call to work with the addon
 var addon = new CTPParser();
-addon.addTracker('facebook.com');
-console.log(addon.matchesTracker('facebook1.com', 'facebook.com'));
-console.log(addon.matchesTracker('facebook.com', 'facebook.com'));
-console.log(addon.matchesTracker('www.facebook.com', 'facebook.com'));
-console.log(addon.matchesTracker('www.facebook.com', 'www.facebook.com'));
-console.log(addon.matchesTracker('facebook.com', 'www.facebook.com'));
-console.log(addon.matchesTracker('facebook.com', 'facebook1.com'));
-addon.addFirstPartyHosts('facebook.com', 'facebook.fr,facebook.de');
-var thirdPartyHosts = addon.findFirstPartyHosts('facebook.com');
-console.log(thirdPartyHosts);
-thirdPartyHosts = addon.findFirstPartyHosts('facebook1.com');
-console.log(thirdPartyHosts);
-var serializedObject = addon.serialize();
-console.log('serializedObject == ' + serializedObject);
+//addon.addTracker('facebook.com');
+//console.log(addon.matchesTracker('facebook1.com', 'facebook.com'));
+//console.log(addon.matchesTracker('facebook.com', 'facebook.com'));
+//console.log(addon.matchesTracker('www.facebook.com', 'facebook.com'));
+//console.log(addon.matchesTracker('www.facebook.com', 'www.facebook.com'));
+//console.log(addon.matchesTracker('facebook.com', 'www.facebook.com'));
+//console.log(addon.matchesTracker('facebook.com', 'facebook1.com'));
+//addon.addFirstPartyHosts('facebook.com', 'facebook.fr,facebook.de');
+//var thirdPartyHosts = addon.findFirstPartyHosts('facebook.com');
+//console.log(thirdPartyHosts);
+//thirdPartyHosts = addon.findFirstPartyHosts('facebook1.com');
+//console.log(thirdPartyHosts);
+//var serializedObject = addon.serialize();
+const serializedObject = fs.readFileSync('../data/TrackingProtection.dat');
+//console.log('serializedObject == ' + serializedObject);
 console.log('size == ' + serializedObject.length);
 
 addon.deserialize(serializedObject);
-console.log(addon.matchesTracker('facebook1.com', 'facebook.com'));
-console.log(addon.matchesTracker('facebook.com', 'facebook.com'));
-console.log(addon.matchesTracker('facebook.com', 'facebook1.com'));
+console.log(addon.matchesTracker('cnet.com', 'tags.tiqcdn.com'));
+console.log(addon.matchesTracker('cnet.com', 'tags.tiqcdn.com'));
+
+//console.log(addon.matchesTracker('facebook1.com', 'facebook.com'));
+//console.log(addon.matchesTracker('facebook.com', 'facebook.com'));
+//console.log(addon.matchesTracker('facebook.com', 'facebook1.com'));
 
 
 //var buffer = fs.readFileSync('./data/TrackingProtection.dat');

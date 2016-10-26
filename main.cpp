@@ -91,7 +91,7 @@ int main(int argc, char **argv) {
         }
     }
     {
-        std::ifstream ifs("TrackingProtection.dat", std::ios_base::in);
+        std::ifstream ifs("/Users/serg/Downloads/TrackingProtection.dat", std::ios_base::in);
         if (ifs) {
             std::streampos begin = ifs.tellg();
             ifs.seekg (0, std::ios::end);
@@ -124,6 +124,13 @@ int main(int argc, char **argv) {
                 char* thirdPartyHosts = parser.findFirstPartyHosts("mobile.twitter.com");
                 if (nullptr != thirdPartyHosts) {
                     cout << thirdPartyHosts << endl;
+                }
+                
+                if (parser.matchesTracker("cnet.com", "tags.tiqcdn.com")) {
+                    cout << "matches cnet.com to tags.tiqcdn.com" << endl;
+                }
+                else {
+                    cout << "does not match cnet.com to tags.tiqcdn.com" << endl;
                 }
 
                 delete []data;
