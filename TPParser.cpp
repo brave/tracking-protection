@@ -40,17 +40,32 @@ void CTPParser::addFirstPartyHosts(const char *inputHost, const char *thirdParty
     if (nullptr == firstPartyHost.sFirstPartyHost || nullptr == firstPartyHost.sThirdPartyHosts) {
         return;
     }
-    strcpy(firstPartyHost.sFirstPartyHost, inputHost);
     strcpy(firstPartyHost.sThirdPartyHosts, thirdPartyHosts);
 
-    if (0 == strncmp(firstPartyHost.sFirstPartyHost, "http://", 7) && strlen(firstPartyHost.sFirstPartyHost) > 7) {
-        strcpy(firstPartyHost.sFirstPartyHost, firstPartyHost.sFirstPartyHost + 7);
+    bool bCopied = false;
+    if (0 == strncmp(inputHost, "http://", 7) && strlen(inputHost) > 7) {
+        strcpy(firstPartyHost.sFirstPartyHost, inputHost + 7);
+        bCopied = true;
     }
-    else if (0 == strncmp(firstPartyHost.sFirstPartyHost, "https://", 8) && strlen(firstPartyHost.sFirstPartyHost) > 8) {
-        strcpy(firstPartyHost.sFirstPartyHost, firstPartyHost.sFirstPartyHost + 8);
+    else if (0 == strncmp(inputHost, "https://", 8) && strlen(inputHost) > 8) {
+        strcpy(firstPartyHost.sFirstPartyHost, inputHost + 8);
+        bCopied = true;
     }
     if (0 == strncmp(firstPartyHost.sFirstPartyHost, "www.", 4) && strlen(firstPartyHost.sFirstPartyHost) > 4) {
-        strcpy(firstPartyHost.sFirstPartyHost, firstPartyHost.sFirstPartyHost + 4);
+        char* newFirstPartyHost = new char[strlen(firstPartyHost.sFirstPartyHost)];
+        if (nullptr == newFirstPartyHost) {
+            delete []firstPartyHost.sFirstPartyHost;
+            delete []firstPartyHost.sThirdPartyHosts;
+            
+            return;
+        }
+        strcpy(newFirstPartyHost, firstPartyHost.sFirstPartyHost + 4);
+        strcpy(firstPartyHost.sFirstPartyHost, newFirstPartyHost);
+        bCopied = true;
+        delete []newFirstPartyHost;
+    }
+    if (!bCopied) {
+        strcpy(firstPartyHost.sFirstPartyHost, inputHost);
     }
     if (0 != strlen(firstPartyHost.sFirstPartyHost) &&
         '/' == firstPartyHost.sFirstPartyHost[strlen(firstPartyHost.sFirstPartyHost) - 1]) {
@@ -90,7 +105,7 @@ bool CTPParser::matchesTracker(const char *firstPartyHost, const char *inputHost
 
     bool exist = trackerExist(inputHost);
     if (!exist) {
-        unsigned int len = strlen(inputHost);
+        unsigned int len = (unsigned int)strlen(inputHost);
         unsigned positionToStart = 0;
         do {
             unsigned int firstDotPos = positionToStart;
@@ -161,7 +176,7 @@ char* CTPParser::findFirstPartyHosts(const char *inputHost) {
         strcpy(result, hosts);
     }
 
-    unsigned int len = strlen(inputHost);
+    unsigned int len = (unsigned int)strlen(inputHost);
     unsigned positionToStart = 0;
     do {
         unsigned int firstDotPos = positionToStart;
@@ -186,9 +201,9 @@ char* CTPParser::findFirstPartyHosts(const char *inputHost) {
         }
         hosts = firstPartyHosts(inputHost + firstDotPos + 1);
         if (hosts) {
-            unsigned int tempLen = strlen(hosts) + 1;
+            unsigned int tempLen = (unsigned int)strlen(hosts) + 1;
             if (result) {
-                tempLen += strlen(result);
+                tempLen += strlen(result) + 1;
             }
             char* tempResult = new char[tempLen];
             if (!tempResult) {
@@ -229,7 +244,7 @@ char* CTPParser::serialize(unsigned int* totalSize) {
         return nullptr;
     }
 
-    *totalSize = sizeof(trackersSize) + trackersSize + sizeof(firstPartiesSize) + firstPartiesSize;
+    *totalSize = sizeof(trackersSize) + trackersSize + sizeof(firstPartiesSize) + firstPartiesSize + 2;
 
     unsigned int pos = 0;
     char* result = new char[*totalSize];

@@ -22,7 +22,7 @@ JSON.parse(String(data), function(k, v) {
   }
   else if (k == 'Content') {
     addToList = true;
-    //console.log(k);
+    console.log(k);
   }
   //console.log(k);
   if (k.indexOf('http://') == 0 || k.indexOf('https://') == 0) {
@@ -75,7 +75,7 @@ for (var [key, value] of mapObjects) {
 }
 
 var serializedObject = addon.serialize();
-//console.log('serializedObject == ' + serializedObject);
-//console.log('size == ' + serializedObject.length);
+console.log('serializedObject == ' + serializedObject);
+console.log('size == ' + serializedObject.length);
 
 fs.writeFileSync('../data/TrackingProtection.dat', serializedObject);

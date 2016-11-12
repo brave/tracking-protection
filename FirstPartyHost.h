@@ -84,7 +84,7 @@ public:
         if (buffer) {
             memcpy(buffer + pos, sThirdPartyHosts, strlen(sThirdPartyHosts));
         }
-        size = pos + strlen(sThirdPartyHosts);
+        size = pos + (unsigned int)strlen(sThirdPartyHosts);
 
         return size;
     }
@@ -102,7 +102,7 @@ public:
         if (sFirstPartyHost) {
             delete []sFirstPartyHost;
         }
-        size = strlen(buffer) + 1;
+        size = (unsigned int)strlen(buffer) + 1;
         sFirstPartyHost = new char[firstPartyHostLength + 1];
         if (!sFirstPartyHost) {
             return size;

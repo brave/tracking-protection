@@ -90,6 +90,7 @@ int main(int argc, char **argv) {
             delete []data;
         }
     }
+    for (int i = 0; i < 10000; i++)
     {
         std::ifstream ifs("/Users/serg/Downloads/TrackingProtection.dat", std::ios_base::in);
         if (ifs) {
@@ -136,6 +137,7 @@ int main(int argc, char **argv) {
                 delete []data;
             }
         }
+        cout << i;
     }
 
     return 0;
