@@ -8521,6 +8521,13 @@
             "2mdn.net"
           ]
         }
+      },
+      {
+        "Alexa": {
+          "http://www.alexa.com/": [
+            "pcache.alexa.com"
+          ]
+        }
       }
     ]
   }
