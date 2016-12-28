@@ -26,7 +26,7 @@ const serializedObject = fs.readFileSync('../data/TrackingProtection.dat');
 //console.log('serializedObject == ' + serializedObject);
 console.log('size == ' + serializedObject.length);
 
-addon.deserialize(serializedObject);
+console.log('deserialize == ' + addon.deserialize(serializedObject));
 console.log(addon.matchesTracker('cnet.com', 'tags.tiqcdn.com'));
 console.log(addon.matchesTracker('cnet.com', 'tags.tiqcdn.com'));
 

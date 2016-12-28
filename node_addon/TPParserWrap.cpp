@@ -211,7 +211,7 @@ namespace TPParserWrap {
         memcpy(deserializedData, buf, length);
 
         CTPParserWrap* obj = ObjectWrap::Unwrap<CTPParserWrap>(args.Holder());
-        obj->deserialize(deserializedData);
+        args.GetReturnValue().Set(obj->deserialize(deserializedData));
     }
 
     void CTPParserWrap::Cleanup(const FunctionCallbackInfo<Value>& args) {
