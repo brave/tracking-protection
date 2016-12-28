@@ -22,7 +22,7 @@ TEST(parser, test1) {
         }
         else if (nullptr != data) {
             CHECK(nullptr != data);
-            parser.deserialize(data);
+            CHECK(parser.deserialize(data));
         }
 
         CHECK(parser.matchesTracker("facebook1.com", "facebook.com"));
@@ -55,7 +55,7 @@ TEST(parser, test1) {
         }
         else if (nullptr != data) {
             CHECK(nullptr != data);
-            parser.deserialize(data);
+            CHECK(parser.deserialize(data));
         }
 
         CHECK(parser.matchesTracker("facebook.com", "subdomain.google-analytics.com"));
@@ -87,7 +87,7 @@ TEST(parser, test1) {
         }
         else if (nullptr != data) {
             CHECK(nullptr != data);
-            parser.deserialize(data);
+            CHECK(parser.deserialize(data));
         }
 
         CHECK(parser.matchesTracker("facebook.com", "subdomain.google-analytics.com"));
@@ -118,7 +118,7 @@ TEST(parser, test1) {
         }
         else if (nullptr != data) {
             CHECK(nullptr != data);
-            parser.deserialize(data);
+            CHECK(parser.deserialize(data));
         }
 
         char* thirdPartyHostsSubDomain = parser.findFirstPartyHosts("subdomain.google.com");

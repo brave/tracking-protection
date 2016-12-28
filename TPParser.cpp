@@ -275,9 +275,9 @@ char* CTPParser::serialize(unsigned int* totalSize) {
     return result;
 }
 
-void CTPParser::deserialize(char *buffer) {
+bool CTPParser::deserialize(char *buffer) {
     if (!buffer) {
-        return;
+        return false;
     }
 
     uint32_t trackersSize = 0;
@@ -285,11 +285,17 @@ void CTPParser::deserialize(char *buffer) {
     sscanf(buffer, "%x", &trackersSize);
     pos += strlen(buffer) + 1;
 
-    mTrackers.deserialize(buffer + pos, trackersSize);
+    if (!mTrackers.deserialize(buffer + pos, trackersSize)) {
+        return false;
+    }
     pos += trackersSize;
 
     uint32_t firstPartiesSize = 0;
     sscanf(buffer + pos, "%x", &firstPartiesSize);
     pos += strlen(buffer + pos) + 1;
-    mFirstPartyHosts.deserialize(buffer + pos, firstPartiesSize);
+    if (!mFirstPartyHosts.deserialize(buffer + pos, firstPartiesSize)) {
+        return false;
+    }
+    
+    return true;
 }

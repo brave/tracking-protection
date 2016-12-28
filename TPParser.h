@@ -29,7 +29,7 @@ public:
     char* serialize(unsigned int* totalSize);
     // Deserializes the buffer, a size is not needed since a serialized
     // buffer is self described
-    void deserialize(char *buffer);
+    bool deserialize(char *buffer);
 
 private:
     bool trackerExist(const char *inputHost);

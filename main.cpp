@@ -64,7 +64,11 @@ int main(int argc, char **argv) {
         char* data = parser.serialize(&totalSize);
 
         // Deserialize data
-        parser.deserialize(data);
+        if (!parser.deserialize(data)) {
+            cout << "deserialize failed";
+            
+            return 0;
+        }
 
         // Prints matches
         if (parser.matchesTracker("facebook1.com", "facebook.com")) {
@@ -105,7 +109,11 @@ int main(int argc, char **argv) {
                 ifs.close();
 
                 CTPParser parser;
-                parser.deserialize(data);
+                if (!parser.deserialize(data)) {
+                    cout << "deserialize failed";
+                    
+                    return 0;
+                }
 
                 // Prints matches
                 if (parser.matchesTracker("facebook1.com", "facebook.com")) {
