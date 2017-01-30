@@ -8528,6 +8528,20 @@
             "pcache.alexa.com"
           ]
         }
+      },
+      {
+        "Saturn": {
+          "https://www.saturn.at/": [
+            "google-analytics.com"
+          ]
+        }
+      },
+      {
+        "Mediamarkt": {
+          "https://www.mediamarkt.at/": [
+            "google-analytics.com"
+          ]
+        }
       }
     ]
   }
