@@ -1,6 +1,6 @@
 {
   "name": "tracking-protection",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "C++ tracking protection filter parser for lists like https://github.com/disconnectme/disconnect-tracking-protection/blob/master/services.json",
   "main": "./build/Release/tp_node_addon",
   "directories": {
@@ -28,7 +28,7 @@
   "homepage": "https://github.com/SergeyZhukovsky/tracking-protection#readme",
   "dependencies": {
     "cppunitlite": "^1.0.0",
-    "hashset-cpp": "^1.0.13",
+    "hashset-cpp": "^1.0.18",
     "mkdirp": "^0.5.1",
     "nan": "^2.1.0"
   },

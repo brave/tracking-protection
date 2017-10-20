@@ -1,0 +1,26 @@
+source_set("tp_node_addon") {
+  configs += [
+    "//electron/build:electron_config",
+  ]
+
+  include_dirs = [
+    "//electron/vendor/tracking-protection",
+    "//electron/vendor/hashset-cpp",
+    "//v8/include/",
+  ]
+
+  sources = [
+    "//electron/vendor/tracking-protection/TPParser.cpp",
+    "//electron/vendor/tracking-protection/TPParser.h",
+    "//electron/vendor/tracking-protection/TrackerData.h",
+    "//electron/vendor/tracking-protection/FirstPartyHost.h",
+    "//electron/vendor/tracking-protection/muon/addon.cpp",
+    "//electron/vendor/tracking-protection/node_addon/TPParserWrap.cpp",
+    "//electron/vendor/tracking-protection/node_addon/TPParserWrap.h",
+  ]
+
+  deps = [
+    "//electron/vendor/hashset-cpp/muon:hashset_cpp",
+  ]
+}
+
