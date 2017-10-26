@@ -9,6 +9,8 @@ config("internal_config") {
     rebase_path("node/src", dep_base),
   ]
 
+  defines = [ "TP_MODULE_CONTEXT_AWARE" ]
+
   cflags = []
 
   if (is_clang) {
@@ -29,7 +31,7 @@ source_set("tp_node_addon") {
     "../TPParser.h",
     "../TrackerData.h",
     "../FirstPartyHost.h",
-    "addon.cpp",
+    "../node_addon/addon.cpp",
     "../node_addon/TPParserWrap.cpp",
     "../node_addon/TPParserWrap.h",
   ]

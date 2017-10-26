@@ -11,10 +11,17 @@ namespace TPParserWrap {
     using v8::Local;
     using v8::Object;
 
+#ifdef TP_MODULE_CONTEXT_AWARE
+    void InitAll(v8::Local<v8::Object> exports, v8::Local<v8::Value> unused,
+            v8::Local<v8::Context> context, void* priv) {
+        CTPParserWrap::Init(exports);
+    }
+    NODE_MODULE_CONTEXT_AWARE_BUILTIN(tp_node_addon, InitAll)
+#else
     void InitAll(Local<Object> exports) {
         CTPParserWrap::Init(exports);
     }
-
     NODE_MODULE(tp_node_addon, InitAll)
+#endif
 
 }  // namespace TPParserWrap
