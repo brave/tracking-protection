@@ -203,7 +203,7 @@ char* CTPParser::findFirstPartyHosts(const char *inputHost) {
         if (hosts) {
             unsigned int tempLen = (unsigned int)strlen(hosts) + 1;
             if (result) {
-                tempLen += strlen(result) + 1;
+                tempLen += static_cast<uint32_t>(strlen(result) + 1);
             }
             char* tempResult = new char[tempLen];
             if (!tempResult) {
@@ -283,7 +283,7 @@ bool CTPParser::deserialize(char *buffer) {
     uint32_t trackersSize = 0;
     unsigned int pos = 0;
     sscanf(buffer, "%x", &trackersSize);
-    pos += strlen(buffer) + 1;
+    pos += static_cast<uint32_t>(strlen(buffer) + 1);
 
     if (!mTrackers.deserialize(buffer + pos, trackersSize)) {
         return false;
@@ -292,7 +292,7 @@ bool CTPParser::deserialize(char *buffer) {
 
     uint32_t firstPartiesSize = 0;
     sscanf(buffer + pos, "%x", &firstPartiesSize);
-    pos += strlen(buffer + pos) + 1;
+    pos += static_cast<uint32_t>(strlen(buffer + pos) + 1);
     if (!mFirstPartyHosts.deserialize(buffer + pos, firstPartiesSize)) {
         return false;
     }

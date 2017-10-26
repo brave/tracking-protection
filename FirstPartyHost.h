@@ -74,7 +74,7 @@ public:
         if (buffer) {
             memcpy(buffer + pos, sFirstPartyHost, strlen(sFirstPartyHost));
         }
-        pos += strlen(sFirstPartyHost);
+        pos += static_cast<uint32_t>(strlen(sFirstPartyHost));
 
         dataLenSize = 1 + snprintf(sz, sizeof(sz), "%x", (unsigned int)strlen(sThirdPartyHosts));
         if (buffer) {
@@ -117,7 +117,7 @@ public:
         if (sThirdPartyHosts) {
             delete []sThirdPartyHosts;
         }
-        size += strlen(buffer + size) + 1;
+        size += static_cast<uint32_t>(strlen(buffer + size) + 1);
         sThirdPartyHosts = new char[thirdPartyHostLength + 1];
         if (!sThirdPartyHosts) {
             return size;
