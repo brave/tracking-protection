@@ -6,15 +6,15 @@
 #include <node.h>
 #include "TPParserWrap.h"
 
-namespace TPParserWrap {
+namespace {
 
-    using v8::Local;
-    using v8::Object;
+using v8::Local;
+using v8::Object;
 
-    void InitAll(Local<Object> exports) {
-        CTPParserWrap::Init(exports);
-    }
+void InitAll(Local<Object> exports) {
+  TPParserWrap::CTPParserWrap::Init(exports);
+}
 
-    NODE_MODULE(tp_node_addon, InitAll)
+}  // namespace
 
-}  // namespace TPParserWrap
+NODE_MODULE(tp_node_addon, InitAll)

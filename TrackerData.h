@@ -68,7 +68,7 @@ public:
         if (buffer) {
             memcpy(buffer + size, sHost, strlen(sHost));
         }
-        size += strlen(sHost);
+        size += static_cast<uint32_t>(strlen(sHost));
 
         return size;
     }
@@ -84,7 +84,7 @@ public:
         if (sHost) {
             delete []sHost;
         }
-        size = strlen(buffer) + 1;
+        size = static_cast<uint32_t>(strlen(buffer) + 1);
         sHost = new char[hostLength + 1];
         if (!sHost) {
             return size;

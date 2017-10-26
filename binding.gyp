@@ -13,7 +13,8 @@
       './node_modules/hashset-cpp'
     ],
     "dependencies": [
-      "./node_modules/hashset-cpp/binding.gyp:hashset-cpp"
+      "./node_modules/hashset-cpp/binding.gyp:hashset-cpp",
+      "./node_modules/hashset-cpp/binding.gyp:bloom-filter-cpp",
     ],
     "conditions": [
       ['OS=="win"', {
