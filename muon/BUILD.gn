@@ -1,4 +1,4 @@
-source_set("tp_node_addon") {
+static_library("tp_node_addon") {
   configs += [
     "//electron/build:electron_config",
   ]
