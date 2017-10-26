@@ -38,6 +38,7 @@ source_set("tp_node_addon") {
 
   deps = [
     rebase_path("hashset-cpp", dep_base),
+    rebase_path("bloom-filter-cpp", dep_base),
     "//v8",
   ]
 }
