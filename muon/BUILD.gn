@@ -1,26 +1,40 @@
-static_library("tp_node_addon") {
-  configs += [
-    "//electron/build:electron_config",
+config("external_config") {
+  include_dirs = [ ".." ]
+}
+
+config("internal_config") {
+  include_dirs = [
+    "//electron/vendor/node/src",
   ]
 
-  include_dirs = [
-    "//electron/vendor/tracking-protection",
-    "//electron/vendor/hashset-cpp",
-    "//v8/include/",
-  ]
+  cflags = []
+
+  if (is_clang) {
+    cflags += [
+      "-Wno-error",
+      "-Wno-deprecated-declarations",
+    ]
+  }
+}
+
+source_set("tp_node_addon") {
+  public_configs = [ ":external_config" ]
+
+  configs += [ ":internal_config" ]
 
   sources = [
-    "//electron/vendor/tracking-protection/TPParser.cpp",
-    "//electron/vendor/tracking-protection/TPParser.h",
-    "//electron/vendor/tracking-protection/TrackerData.h",
-    "//electron/vendor/tracking-protection/FirstPartyHost.h",
-    "//electron/vendor/tracking-protection/muon/addon.cpp",
-    "//electron/vendor/tracking-protection/node_addon/TPParserWrap.cpp",
-    "//electron/vendor/tracking-protection/node_addon/TPParserWrap.h",
+    "../TPParser.cpp",
+    "../TPParser.h",
+    "../TrackerData.h",
+    "../FirstPartyHost.h",
+    "addon.cpp",
+    "../node_addon/TPParserWrap.cpp",
+    "../node_addon/TPParserWrap.h",
   ]
 
   deps = [
     "//electron/vendor/hashset-cpp/muon:hashset_cpp",
+    "//v8",
   ]
 }
 
