@@ -1,10 +1,12 @@
+dep_base = rebase_path("../..", "//")
+
 config("external_config") {
   include_dirs = [ ".." ]
 }
 
 config("internal_config") {
   include_dirs = [
-    "//electron/vendor/node/src",
+    rebase_path("node/src", dep_base),
   ]
 
   cflags = []
@@ -33,7 +35,7 @@ source_set("tp_node_addon") {
   ]
 
   deps = [
-    "//electron/vendor/hashset-cpp/muon:hashset_cpp",
+    rebase_path("hashset-cpp", dep_base),
     "//v8",
   ]
 }
