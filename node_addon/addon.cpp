@@ -15,6 +15,15 @@ void InitAll(Local<Object> exports) {
   TPParserWrap::CTPParserWrap::Init(exports);
 }
 
+void InitAll(v8::Local<v8::Object> exports, v8::Local<v8::Value> unused,
+                v8::Local<v8::Context> context, void* priv) {
+  InitAll(exports);
+}
+
 }  // namespace
 
+#ifdef TP_INTERNAL_MODULE
+NODE_MODULE_CONTEXT_AWARE_BUILTIN(tp_node_addon, InitAll)
+#else
 NODE_MODULE(tp_node_addon, InitAll)
+#endif
