@@ -15,6 +15,10 @@ void InitAll(Local<Object> exports) {
   TPParserWrap::CTPParserWrap::Init(exports);
 }
 
+void InitAll(v8::Local<v8::Object> exports, v8::Local<v8::Value> unused, void* priv) {
+  InitAll(exports);
+}
+
 void InitAll(v8::Local<v8::Object> exports, v8::Local<v8::Value> unused,
                 v8::Local<v8::Context> context, void* priv) {
   InitAll(exports);
