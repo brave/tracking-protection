@@ -1,0 +1,27 @@
+dep_base = rebase_path("../..", "//")
+
+config("external_config") {
+  include_dirs = [ ".." ]
+}
+
+config("internal_config") {
+}
+
+source_set("tracking-protection") {
+  public_configs = [ ":external_config" ]
+  configs += [ ":internal_config" ]
+  sources = [
+    "../TPParser.cpp",
+    "../TPParser.h",
+    "../TrackerData.cpp",
+    "../TrackerData.h",
+    "../FirstPartyHost.cpp",
+    "../FirstPartyHost.h",
+  ]
+
+  deps = [
+    rebase_path("hashset-cpp/antimuon:hashset-cpp", dep_base),
+    rebase_path("bloom-filter-cpp/antimuon:bloom-filter-cpp", dep_base),
+  ]
+}
+
