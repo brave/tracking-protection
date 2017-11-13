@@ -29,7 +29,9 @@ source_set("tp_node_addon") {
   sources = [
     "../TPParser.cpp",
     "../TPParser.h",
+    "../TrackerData.cpp",
     "../TrackerData.h",
+    "../FirstPartyHost.cpp",
     "../FirstPartyHost.h",
     "../node_addon/addon.cpp",
     "../node_addon/TPParserWrap.cpp",

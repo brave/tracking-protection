@@ -6,9 +6,9 @@
 #ifndef TRACKER_DATA_H_
 #define TRACKER_DATA_H_
 
-#include "hashFn.h"
-
-static HashFn sHashFn(19);
+#include <stdint.h>
+#include <stdio.h>
+#include <string.h>
 
 struct ST_TRACKER_DATA {
 public:
@@ -31,14 +31,7 @@ public:
         }
     }
 
-    uint64_t hash() const {
-        if (!sHost) {
-            return 0;
-        }
-
-        return sHashFn(sHost, static_cast<int>(strlen(sHost)));
-
-    }
+    uint64_t hash() const;
 
     bool operator==(const ST_TRACKER_DATA &rhs) const {
         int hostLen = static_cast<int>(strlen(sHost));

@@ -6,9 +6,9 @@
 #ifndef FIRST_PARTY_HOST_H_
 #define FIRST_PARTY_HOST_H_
 
-#include "hashFn.h"
-
-static HashFn sFirstPartyHashFn(19);
+#include <stdint.h>
+#include <stdio.h>
+#include <string.h>
 
 struct ST_FIRST_PARTY_HOST
 {
@@ -38,15 +38,7 @@ public:
         }
     }
 
-    uint64_t hash() const {
-        // Calculate hash only on first party host as we will search using it only
-        if (!sFirstPartyHost) {
-            return 0;
-        }
-
-        return sFirstPartyHashFn(sFirstPartyHost, static_cast<int>(strlen(sFirstPartyHost)));
-
-    }
+    uint64_t hash() const;
 
     bool operator==(const ST_FIRST_PARTY_HOST &rhs) const {
         int hostLen = static_cast<int>(strlen(sFirstPartyHost));
