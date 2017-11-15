@@ -4,10 +4,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 #include "TPParser.h"
+#include "HashSet.h"
 
-CTPParser::CTPParser():
-    mTrackers(2196),
-    mFirstPartyHosts(1016) {
+CTPParser::CTPParser() {
+    mTrackers.reset(new HashSet<ST_TRACKER_DATA>(2196));
+    mFirstPartyHosts.reset(new HashSet<ST_FIRST_PARTY_HOST>(2196));
 }
 
 CTPParser::~CTPParser() {
@@ -25,7 +26,7 @@ void CTPParser::addTracker(const char *inputHost) {
         return;
     }
 
-    mTrackers.add(trackerData);
+    mTrackers->add(trackerData);
 }
 
 void CTPParser::addFirstPartyHosts(const char *inputHost, const char *thirdPartyHosts) {
@@ -56,7 +57,7 @@ void CTPParser::addFirstPartyHosts(const char *inputHost, const char *thirdParty
         if (nullptr == newFirstPartyHost) {
             delete []firstPartyHost.sFirstPartyHost;
             delete []firstPartyHost.sThirdPartyHosts;
-            
+
             return;
         }
         strcpy(newFirstPartyHost, firstPartyHost.sFirstPartyHost + 4);
@@ -72,7 +73,7 @@ void CTPParser::addFirstPartyHosts(const char *inputHost, const char *thirdParty
         firstPartyHost.sFirstPartyHost[strlen(firstPartyHost.sFirstPartyHost) - 1] = '\0';
     }
 
-    mFirstPartyHosts.add(firstPartyHost);
+    mFirstPartyHosts->add(firstPartyHost);
 }
 
 bool CTPParser::trackerExist(const char *inputHost) {
@@ -83,7 +84,7 @@ bool CTPParser::trackerExist(const char *inputHost) {
     }
     strcpy(trackerData.sHost, inputHost);
 
-    return mTrackers.exists(trackerData);
+    return mTrackers->exists(trackerData);
 }
 
 bool CTPParser::matchesTracker(const char *firstPartyHost, const char *inputHost) {
@@ -152,7 +153,7 @@ char* CTPParser::firstPartyHosts(const char *inputHost)
     strcpy(firstPartyHost.sThirdPartyHosts, "");
 
 
-    ST_FIRST_PARTY_HOST* foundFirstPartyHost = mFirstPartyHosts.find(firstPartyHost);
+    ST_FIRST_PARTY_HOST* foundFirstPartyHost = mFirstPartyHosts->find(firstPartyHost);
 
     if (nullptr == foundFirstPartyHost) {
         return nullptr;
@@ -230,8 +231,8 @@ char* CTPParser::serialize(unsigned int* totalSize) {
 
     uint32_t trackersSize = 0;
     uint32_t firstPartiesSize = 0;
-    char* trackers = mTrackers.serialize(&trackersSize);
-    char* firstParties = mFirstPartyHosts.serialize(&firstPartiesSize);
+    char* trackers = mTrackers->serialize(&trackersSize);
+    char* firstParties = mFirstPartyHosts->serialize(&firstPartiesSize);
 
     if (!trackers || !firstParties) {
         if (trackers) {
@@ -285,7 +286,7 @@ bool CTPParser::deserialize(char *buffer) {
     sscanf(buffer, "%x", &trackersSize);
     pos += static_cast<uint32_t>(strlen(buffer) + 1);
 
-    if (!mTrackers.deserialize(buffer + pos, trackersSize)) {
+    if (!mTrackers->deserialize(buffer + pos, trackersSize)) {
         return false;
     }
     pos += trackersSize;
@@ -293,9 +294,9 @@ bool CTPParser::deserialize(char *buffer) {
     uint32_t firstPartiesSize = 0;
     sscanf(buffer + pos, "%x", &firstPartiesSize);
     pos += static_cast<uint32_t>(strlen(buffer + pos) + 1);
-    if (!mFirstPartyHosts.deserialize(buffer + pos, firstPartiesSize)) {
+    if (!mFirstPartyHosts->deserialize(buffer + pos, firstPartiesSize)) {
         return false;
     }
-    
+
     return true;
 }

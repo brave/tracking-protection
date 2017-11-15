@@ -6,10 +6,13 @@
 #ifndef TPPARSER_H_
 #define TPPARSER_H_
 
-#include "HashSet.h"
+#include <memory>
+
 #include "TrackerData.h"
 #include "FirstPartyHost.h"
 
+template<class T>
+class HashSet;
 
 class CTPParser {
 public:
@@ -35,8 +38,8 @@ private:
     bool trackerExist(const char *inputHost);
     char* firstPartyHosts(const char *inputHost);
 
-    HashSet<ST_TRACKER_DATA> mTrackers;
-    HashSet<ST_FIRST_PARTY_HOST> mFirstPartyHosts;
+    std::unique_ptr<HashSet<ST_TRACKER_DATA> > mTrackers;
+    std::unique_ptr<HashSet<ST_FIRST_PARTY_HOST> > mFirstPartyHosts;
 };
 
 #endif  //TPPARSER_H_
