@@ -20,8 +20,8 @@ source_set("tracking-protection") {
   ]
 
   deps = [
-    rebase_path("hashset-cpp/antimuon:hashset-cpp", dep_base),
-    rebase_path("bloom-filter-cpp/antimuon:bloom-filter-cpp", dep_base),
+    rebase_path("hashset-cpp/brave:hashset-cpp", dep_base),
+    rebase_path("bloom-filter-cpp/brave:bloom-filter-cpp", dep_base),
   ]
 }
 
