@@ -10,7 +10,7 @@
 
 static HashFn sFirstPartyHashFn(19);
 
-uint64_t ST_FIRST_PARTY_HOST::hash() const {
+uint64_t ST_FIRST_PARTY_HOST::GetHash() const {
   // Calculate hash only on first party host as we will search using it only
   if (!sFirstPartyHost) {
     return 0;

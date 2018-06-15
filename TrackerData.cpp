@@ -8,7 +8,7 @@
 
 static HashFn sHashFn(19);
 
-uint64_t ST_TRACKER_DATA::hash() const {
+uint64_t ST_TRACKER_DATA::GetHash() const {
   if (!sHost) {
     return 0;
   }

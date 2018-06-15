@@ -38,7 +38,7 @@ public:
         }
     }
 
-    uint64_t hash() const;
+    uint64_t GetHash() const;
 
     bool operator==(const ST_FIRST_PARTY_HOST &rhs) const {
         int hostLen = static_cast<int>(strlen(sFirstPartyHost));
@@ -52,9 +52,9 @@ public:
     }
 
     // Nothing needs to be updated when a host is added multiple times
-    void update(const ST_FIRST_PARTY_HOST&) {}
+    void Update(const ST_FIRST_PARTY_HOST&) {}
 
-    uint32_t serialize(char* buffer) {
+    uint32_t Serialize(char* buffer) {
         uint32_t size = 0;
         unsigned int pos = 0;
         char sz[32];
@@ -81,7 +81,7 @@ public:
         return size;
     }
 
-    uint32_t deserialize(char *buffer, uint32_t bufferSize) {
+    uint32_t Deserialize(char *buffer, uint32_t bufferSize) {
         uint32_t size = 0;
 
         if (!buffer || 0 == bufferSize) {
