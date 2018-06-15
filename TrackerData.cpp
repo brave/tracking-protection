@@ -4,7 +4,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 #include "./TrackerData.h"
-#include "hashFn.h"
+#include "test/hashFn.h"
 
 static HashFn sHashFn(19);
 

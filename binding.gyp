@@ -74,9 +74,9 @@
       "TrackerData.h",
       "FirstPartyHost.cpp",
       "FirstPartyHost.h",
-      "./node_modules/hashset-cpp/HashSet.cpp",
-      "./node_modules/hashset-cpp/HashSet.h",
-      "./node_modules/hashset-cpp/HashFn.h"
+      "./node_modules/hashset-cpp/hash_set.cc",
+      "./node_modules/hashset-cpp/hash_set.h",
+      "./node_modules/hashset-cpp/test/hashFn.h"
     ],
     "include_dirs": [
       ".",
@@ -108,9 +108,9 @@
       "TrackerData.h",
       "FirstPartyHost.cpp",
       "FirstPartyHost.h",
-      "./node_modules/hashset-cpp/HashSet.cpp",
-      "./node_modules/hashset-cpp/HashSet.h",
-      "./node_modules/hashset-cpp/HashFn.h"
+      "./node_modules/hashset-cpp/hash_set.cc",
+      "./node_modules/hashset-cpp/hash_set.h",
+      "./node_modules/hashset-cpp/test/hashFn.h"
     ],
     "include_dirs": [
       ".",
