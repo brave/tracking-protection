@@ -87,7 +87,7 @@ namespace TPParserWrap {
             return;
         }
 
-        String::Utf8Value str(args[0]->ToString());
+        String::Utf8Value str(isolate, args[0]->ToString());
         const char * buffer = *str;
 
         CTPParserWrap* obj = ObjectWrap::Unwrap<CTPParserWrap>(args.Holder());
@@ -108,7 +108,7 @@ namespace TPParserWrap {
             return;
         }
 
-        String::Utf8Value strFirstPartyHost(args[0]->ToString());
+        String::Utf8Value strFirstPartyHost(isolate, args[0]->ToString());
         String::Utf8Value strHost(args[1]->ToString());
         const char * bufferFirstPartyHost = *strFirstPartyHost;
         const char * bufferHost = *strHost;
@@ -131,8 +131,8 @@ namespace TPParserWrap {
             return;
         }
 
-        String::Utf8Value strFirstHost(args[0]->ToString());
-        String::Utf8Value strThirdPartyHosts(args[1]->ToString());
+        String::Utf8Value strFirstHost(isolate, args[0]->ToString());
+        String::Utf8Value strThirdPartyHosts(isolate, args[1]->ToString());
 
         const char* firstHost = *strFirstHost;
         const char* thirdPartyHosts = *strThirdPartyHosts;
@@ -155,7 +155,7 @@ namespace TPParserWrap {
             return;
         }
 
-        String::Utf8Value strFirstHost(args[0]->ToString());
+        String::Utf8Value strFirstHost(isolate, args[0]->ToString());
 
         const char* firstHost = *strFirstHost;
         CTPParserWrap* obj = ObjectWrap::Unwrap<CTPParserWrap>(args.Holder());
