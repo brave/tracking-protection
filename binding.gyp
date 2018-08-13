@@ -42,7 +42,9 @@
         "FirstPartyHost.h",
         "./node_addon/TPParserWrap.h",
         "./node_addon/TPParserWrap.cpp",
-        "./node_addon/addon.cpp"
+        "./node_addon/addon.cpp",
+        "./node_modules/hashset-cpp/test/hashFn.cc",
+        "./node_modules/hashset-cpp/test/hashFn.h"
       ],
       "include_dirs": [
         ".",
