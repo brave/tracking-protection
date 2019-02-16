@@ -46,7 +46,7 @@ JSON.parse(String(data), function(k, v) {
       console.log(v);
       return;
     }
-    if (undefined != previousKey && k <= previousKey) {
+    if (undefined != previousKey && parseInt(k) <= parseInt(previousKey)) {
       values.delete(previousValue);
     }
     values.set(v);
