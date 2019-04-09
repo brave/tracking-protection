@@ -10747,6 +10747,34 @@
             "ads-twitter.com"
           ]
         }
+      },
+      {
+        "Cnet": {
+          "https://www.cnet.com/": [
+            "2mdn.net"
+          ]
+        }
+      },
+      {
+        "Alexa": {
+          "http://www.alexa.com/": [
+            "pcache.alexa.com"
+          ]
+        }
+      },
+      {
+        "Saturn": {
+          "https://www.saturn.at/": [
+            "google-analytics.com"
+          ]
+        }
+      },
+      {
+        "Mediamarkt": {
+          "https://www.mediamarkt.at/": [
+            "google-analytics.com"
+          ]
+        }
       }
     ]
   }
