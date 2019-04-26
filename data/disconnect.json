@@ -10756,6 +10756,15 @@
           ]
         }
       }
+    ],
+    "Brave": [
+      {
+        "Saturn": {
+          "https://www.saturn.at/": [
+            "google-analytics.com"
+          ]
+        }
+      }
     ]
   }
 }
