@@ -6,6 +6,12 @@
 #include <node_buffer.h>
 #include "TPParserWrap.h"
 
+#if V8_MAJOR_VERSION >= 7
+#define CHECK_SET(X) X.Check()
+#else
+#define CHECK_SET(X) (void)X
+#endif
+
 namespace TPParserWrap {
 
     using v8::Function;
@@ -21,6 +27,7 @@ namespace TPParserWrap {
     using v8::Boolean;
     using v8::Value;
     using v8::Exception;
+    using v8::NewStringType;
 
     char *deserializedData = nullptr;
 
@@ -37,7 +44,7 @@ namespace TPParserWrap {
 
         // Prepare constructor template
         Local<FunctionTemplate> tpl = FunctionTemplate::New(isolate, New);
-        tpl->SetClassName(String::NewFromUtf8(isolate, "CTPParser"));
+        tpl->SetClassName(String::NewFromUtf8(isolate, "CTPParser", NewStringType::kNormal).ToLocalChecked());
         tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
         NODE_SET_PROTOTYPE_METHOD(tpl, "addTracker", CTPParserWrap::AddTracker);
@@ -48,9 +55,9 @@ namespace TPParserWrap {
         NODE_SET_PROTOTYPE_METHOD(tpl, "deserialize", CTPParserWrap::Deserialize);
         NODE_SET_PROTOTYPE_METHOD(tpl, "cleanup", CTPParserWrap::Cleanup);
 
-        constructor.Reset(isolate, tpl->GetFunction());
-        exports->Set(String::NewFromUtf8(isolate, "CTPParser"),
-                     tpl->GetFunction());
+        constructor.Reset(isolate, tpl->GetFunction(isolate->GetCurrentContext()).ToLocalChecked());
+        CHECK_SET(exports->Set(isolate->GetCurrentContext(), String::NewFromUtf8(isolate, "CTPParser", NewStringType::kNormal).ToLocalChecked(),
+                     tpl->GetFunction(isolate->GetCurrentContext()).ToLocalChecked()));
     }
 
     void CTPParserWrap::New(const FunctionCallbackInfo<Value>& args) {
@@ -77,17 +84,17 @@ namespace TPParserWrap {
         Isolate* isolate = args.GetIsolate();
         if (args.Length() < 1) {
             isolate->ThrowException(Exception::TypeError(
-                                                         String::NewFromUtf8(isolate, "Wrong number of arguments")));
+                                                         String::NewFromUtf8(isolate, "Wrong number of arguments", NewStringType::kNormal).ToLocalChecked()));
             return;
         }
 
         if (!args[0]->IsString()) {
             isolate->ThrowException(Exception::TypeError(
-                                                         String::NewFromUtf8(isolate, "Wrong arguments")));
+                                                         String::NewFromUtf8(isolate, "Wrong arguments", NewStringType::kNormal).ToLocalChecked()));
             return;
         }
 
-        String::Utf8Value str(isolate, args[0]->ToString());
+        String::Utf8Value str(isolate, args[0]->ToString(isolate->GetCurrentContext()).FromMaybe(Local<String>()));
         const char * buffer = *str;
 
         CTPParserWrap* obj = ObjectWrap::Unwrap<CTPParserWrap>(args.Holder());
@@ -98,18 +105,18 @@ namespace TPParserWrap {
         Isolate* isolate = args.GetIsolate();
         if (args.Length() < 2) {
             isolate->ThrowException(Exception::TypeError(
-                                                         String::NewFromUtf8(isolate, "Wrong number of arguments")));
+                                                         String::NewFromUtf8(isolate, "Wrong number of arguments", NewStringType::kNormal).ToLocalChecked()));
             return;
         }
 
         if (!args[0]->IsString() || !args[1]->IsString()) {
             isolate->ThrowException(Exception::TypeError(
-                                                         String::NewFromUtf8(isolate, "Wrong arguments")));
+                                                         String::NewFromUtf8(isolate, "Wrong arguments", NewStringType::kNormal).ToLocalChecked()));
             return;
         }
 
-        String::Utf8Value strFirstPartyHost(isolate, args[0]->ToString());
-        String::Utf8Value strHost(args[1]->ToString());
+        String::Utf8Value strFirstPartyHost(isolate, args[0]->ToString(isolate->GetCurrentContext()).FromMaybe(Local<String>()));
+        String::Utf8Value strHost(isolate, args[1]->ToString(isolate->GetCurrentContext()).FromMaybe(Local<String>()));
         const char * bufferFirstPartyHost = *strFirstPartyHost;
         const char * bufferHost = *strHost;
 
@@ -121,18 +128,18 @@ namespace TPParserWrap {
         Isolate* isolate = args.GetIsolate();
         if (args.Length() < 2) {
             isolate->ThrowException(Exception::TypeError(
-                                                         String::NewFromUtf8(isolate, "Wrong number of arguments")));
+                                                         String::NewFromUtf8(isolate, "Wrong number of arguments", NewStringType::kNormal).ToLocalChecked()));
             return;
         }
 
         if (!args[0]->IsString() || !args[1]->IsString()) {
             isolate->ThrowException(Exception::TypeError(
-                                                         String::NewFromUtf8(isolate, "Wrong arguments")));
+                                                         String::NewFromUtf8(isolate, "Wrong arguments", NewStringType::kNormal).ToLocalChecked()));
             return;
         }
 
-        String::Utf8Value strFirstHost(isolate, args[0]->ToString());
-        String::Utf8Value strThirdPartyHosts(isolate, args[1]->ToString());
+        String::Utf8Value strFirstHost(isolate, args[0]->ToString(isolate->GetCurrentContext()).FromMaybe(Local<String>()));
+        String::Utf8Value strThirdPartyHosts(isolate, args[1]->ToString(isolate->GetCurrentContext()).FromMaybe(Local<String>()));
 
         const char* firstHost = *strFirstHost;
         const char* thirdPartyHosts = *strThirdPartyHosts;
@@ -145,23 +152,23 @@ namespace TPParserWrap {
         Isolate* isolate = args.GetIsolate();
         if (args.Length() < 1) {
             isolate->ThrowException(Exception::TypeError(
-                                                         String::NewFromUtf8(isolate, "Wrong number of arguments")));
+                                                         String::NewFromUtf8(isolate, "Wrong number of arguments", NewStringType::kNormal).ToLocalChecked()));
             return;
         }
 
         if (!args[0]->IsString()) {
             isolate->ThrowException(Exception::TypeError(
-                                                         String::NewFromUtf8(isolate, "Wrong arguments")));
+                                                         String::NewFromUtf8(isolate, "Wrong arguments", NewStringType::kNormal).ToLocalChecked()));
             return;
         }
 
-        String::Utf8Value strFirstHost(isolate, args[0]->ToString());
+        String::Utf8Value strFirstHost(isolate, args[0]->ToString(isolate->GetCurrentContext()).FromMaybe(Local<String>()));
 
         const char* firstHost = *strFirstHost;
         CTPParserWrap* obj = ObjectWrap::Unwrap<CTPParserWrap>(args.Holder());
         char* thirdPartyHosts = obj->findFirstPartyHosts(firstHost);
         if (nullptr != thirdPartyHosts) {
-            v8::Local<String> toReturn = String::NewFromUtf8(isolate, thirdPartyHosts);
+            v8::Local<String> toReturn = String::NewFromUtf8(isolate, thirdPartyHosts, NewStringType::kNormal).ToLocalChecked();
             args.GetReturnValue().Set(toReturn);
             delete []thirdPartyHosts;
         }
@@ -177,7 +184,7 @@ namespace TPParserWrap {
         char* data = obj->serialize(&totalSize);
         if (nullptr == data) {
             isolate->ThrowException(Exception::TypeError(
-                                                         String::NewFromUtf8(isolate, "Could not serialize")));
+                                                         String::NewFromUtf8(isolate, "Could not serialize", NewStringType::kNormal).ToLocalChecked()));
             return;
         }
 
@@ -185,7 +192,7 @@ namespace TPParserWrap {
         Local<Object> localBuffer;
         if (!buffer.ToLocal(&localBuffer)) {
             isolate->ThrowException(Exception::TypeError(
-                                                         String::NewFromUtf8(isolate, "Could not convert MaybeLocal to Local")));
+                                                         String::NewFromUtf8(isolate, "Could not convert MaybeLocal to Local", NewStringType::kNormal).ToLocalChecked()));
             return;
         }
         ::memcpy(node::Buffer::Data(localBuffer), data, totalSize);
@@ -199,7 +206,7 @@ namespace TPParserWrap {
         Isolate* isolate = args.GetIsolate();
         if (args.Length() < 1) {
             isolate->ThrowException(Exception::TypeError(
-                                                         String::NewFromUtf8(isolate, "Wrong number of arguments")));
+                                                         String::NewFromUtf8(isolate, "Wrong number of arguments", NewStringType::kNormal).ToLocalChecked()));
             return;
         }
 
