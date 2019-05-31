@@ -276,6 +276,10 @@ char* CTPParser::serialize(unsigned int* totalSize) {
     return result;
 }
 
+bool CTPParser::deserialize(char *buffer, size_t) {
+  return deserialize(buffer);
+}
+
 bool CTPParser::deserialize(char *buffer) {
     if (!buffer) {
         return false;

@@ -33,6 +33,7 @@ public:
     // Deserializes the buffer, a size is not needed since a serialized
     // buffer is self described
     bool deserialize(char *buffer);
+    bool deserialize(char *buffer, size_t);
 
 private:
     bool trackerExist(const char *inputHost);
