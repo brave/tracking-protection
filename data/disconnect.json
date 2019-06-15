@@ -10763,7 +10763,13 @@
           "https://www.saturn.at/": [
             "google-analytics.com"
           ]
-        }
+        },
+	"Messenger": {
+	  "https://www.messenger.com/": [
+	    "facebook.net",
+	    "fbcdn.net"
+	   ]
+	 }
       }
     ]
   }
