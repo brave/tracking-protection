@@ -43,8 +43,8 @@
         "./node_addon/TPParserWrap.h",
         "./node_addon/TPParserWrap.cpp",
         "./node_addon/addon.cpp",
-        "./node_modules/hashset-cpp/test/hashFn.cc",
-        "./node_modules/hashset-cpp/test/hashFn.h"
+        "./node_modules/hashset-cpp/hashFn.cc",
+        "./node_modules/hashset-cpp/hashFn.h"
       ],
       "include_dirs": [
         ".",
@@ -78,8 +78,8 @@
       "FirstPartyHost.h",
       "./node_modules/hashset-cpp/hash_set.cc",
       "./node_modules/hashset-cpp/hash_set.h",
-      "./node_modules/hashset-cpp/test/hashFn.cc",
-      "./node_modules/hashset-cpp/test/hashFn.h"
+      "./node_modules/hashset-cpp/hashFn.cc",
+      "./node_modules/hashset-cpp/hashFn.h"
     ],
     "include_dirs": [
       ".",
@@ -113,8 +113,8 @@
       "FirstPartyHost.h",
       "./node_modules/hashset-cpp/hash_set.cc",
       "./node_modules/hashset-cpp/hash_set.h",
-      "./node_modules/hashset-cpp/test/hashFn.cc",
-      "./node_modules/hashset-cpp/test/hashFn.h"
+      "./node_modules/hashset-cpp/hashFn.cc",
+      "./node_modules/hashset-cpp/hashFn.h"
     ],
     "include_dirs": [
       ".",
