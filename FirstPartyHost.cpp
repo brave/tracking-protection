@@ -6,7 +6,7 @@
 
 #include "./FirstPartyHost.h"
 
-#include "test/hashFn.h"
+#include "hashFn.h"
 
 static HashFn sFirstPartyHashFn(19);
 

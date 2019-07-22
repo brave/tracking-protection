@@ -28,9 +28,9 @@
   "homepage": "https://github.com/SergeyZhukovsky/tracking-protection#readme",
   "dependencies": {
     "cppunitlite": "^1.0.0",
-    "hashset-cpp": "^2.1.1",
+    "hashset-cpp": "^2.2.1",
     "mkdirp": "^0.5.1",
-    "nan": "^2.10.0"
+    "nan": "^2.14.0"
   },
   "devDependencies": {}
 }
